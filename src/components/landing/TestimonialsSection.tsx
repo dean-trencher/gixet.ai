@@ -5,6 +5,121 @@ import { Code2, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
+const SyntaxHighlight = ({ code, language }: { code: string; language: string }) => {
+  const highlightCode = (text: string) => {
+    // Keywords
+    const keywords = ['const', 'let', 'var', 'function', 'async', 'await', 'return', 'if', 'else', 'for', 'while', 'import', 'from', 'class', 'def', 'true', 'false', 'null', 'undefined'];
+    const keywordRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g');
+    
+    // Strings
+    const stringRegex = /(['"`])((?:\\.|[^\\])*?)\1/g;
+    
+    // Comments
+    const commentRegex = /(\/\/.*$|\/\*[\s\S]*?\*\/|#.*$)/gm;
+    
+    // Numbers
+    const numberRegex = /\b(\d+)\b/g;
+    
+    // Functions
+    const functionRegex = /\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g;
+    
+    let result = text;
+    const replacements: { index: number; length: number; replacement: string }[] = [];
+    
+    // Find all matches and store them
+    let match;
+    
+    // Comments (highest priority)
+    while ((match = commentRegex.exec(text)) !== null) {
+      replacements.push({
+        index: match.index,
+        length: match[0].length,
+        replacement: `<span class="text-green-400">${match[0]}</span>`
+      });
+    }
+    
+    // Strings
+    commentRegex.lastIndex = 0;
+    while ((match = stringRegex.exec(text)) !== null) {
+      const isInComment = replacements.some(r => 
+        match!.index >= r.index && match!.index < r.index + r.length
+      );
+      if (!isInComment) {
+        replacements.push({
+          index: match.index,
+          length: match[0].length,
+          replacement: `<span class="text-amber-400">${match[0]}</span>`
+        });
+      }
+    }
+    
+    // Keywords
+    stringRegex.lastIndex = 0;
+    while ((match = keywordRegex.exec(text)) !== null) {
+      const isInStringOrComment = replacements.some(r => 
+        match!.index >= r.index && match!.index < r.index + r.length
+      );
+      if (!isInStringOrComment) {
+        replacements.push({
+          index: match.index,
+          length: match[0].length,
+          replacement: `<span class="text-purple-400">${match[0]}</span>`
+        });
+      }
+    }
+    
+    // Functions
+    keywordRegex.lastIndex = 0;
+    while ((match = functionRegex.exec(text)) !== null) {
+      const isInStringOrComment = replacements.some(r => 
+        match!.index >= r.index && match!.index < r.index + r.length
+      );
+      if (!isInStringOrComment) {
+        const funcName = match[1];
+        replacements.push({
+          index: match.index,
+          length: funcName.length,
+          replacement: `<span class="text-blue-400">${funcName}</span>`
+        });
+      }
+    }
+    
+    // Numbers
+    functionRegex.lastIndex = 0;
+    while ((match = numberRegex.exec(text)) !== null) {
+      const isInStringOrComment = replacements.some(r => 
+        match!.index >= r.index && match!.index < r.index + r.length
+      );
+      if (!isInStringOrComment) {
+        replacements.push({
+          index: match.index,
+          length: match[0].length,
+          replacement: `<span class="text-cyan-400">${match[0]}</span>`
+        });
+      }
+    }
+    
+    // Sort by index in reverse order
+    replacements.sort((a, b) => b.index - a.index);
+    
+    // Apply replacements
+    for (const r of replacements) {
+      result = result.slice(0, r.index) + r.replacement + result.slice(r.index + r.length);
+    }
+    
+    return result;
+  };
+
+  return (
+    <pre className="bg-muted/30 rounded-lg p-4 overflow-x-auto border border-border/50 h-full">
+      <code 
+        className="text-xs font-mono leading-relaxed block"
+        dangerouslySetInnerHTML={{ __html: highlightCode(code) }}
+      />
+    </pre>
+  );
+};
+
 const apiExamples = [
   {
     title: "Chat Completion",
@@ -228,11 +343,7 @@ export const TestimonialsSection = ({ showTestimonials }: TestimonialsSectionPro
                 </Button>
               </div>
               <div className="flex-1">
-                <pre className="bg-muted/30 rounded-lg p-4 overflow-x-auto border border-border/50 h-full">
-                  <code className="text-xs text-foreground font-mono leading-relaxed">
-                    {example.code}
-                  </code>
-                </pre>
+                <SyntaxHighlight code={example.code} language={example.language} />
               </div>
             </Card>
           ))}
