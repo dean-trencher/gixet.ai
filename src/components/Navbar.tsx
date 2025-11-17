@@ -124,7 +124,7 @@ export const Navbar = () => {
   const [active, setActive] = useState('what');
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [hasTicker, setHasTicker] = useState(false);
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
@@ -275,7 +275,7 @@ export const Navbar = () => {
                   <Button
                     variant="ghost"
                     className="flex items-center gap-2 px-4 py-3 rounded-lg hover:bg-primary hover:text-primary-foreground"
-                    onClick={logout}
+                    onClick={signOut}
                   >
                     <LogOut size={20} />
                     {active === 'logout' && <span className="font-medium">Logout</span>}
