@@ -58,10 +58,10 @@ export const CryptoTicker = () => {
   if (!config || !config.contract_address) return null;
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 text-white py-2 overflow-hidden">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary via-primary/80 to-primary text-white py-2 overflow-hidden">
       <div className="animate-ticker whitespace-nowrap flex items-center gap-8 px-4">
         <div className="flex items-center gap-2">
-          <span className="font-bold text-lg">$CORTEXT</span>
+          <span className="font-bold text-lg">$GIXET</span>
         </div>
         
         {config.contract_address && (
@@ -91,7 +91,7 @@ export const CryptoTicker = () => {
         
         {/* Repeat for continuous scroll */}
         <div className="flex items-center gap-2">
-          <span className="font-bold text-lg">$CORTEXT</span>
+          <span className="font-bold text-lg">$GIXET</span>
         </div>
         
         {config.contract_address && (

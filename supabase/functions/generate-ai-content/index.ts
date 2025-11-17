@@ -93,7 +93,7 @@ serve(async (req) => {
         messages: [
           { 
             role: 'system', 
-            content: 'You are a creative AI assistant for Cortext.ai. Generate high-quality, engaging content based on user prompts. Keep responses concise and impactful.' 
+            content: 'You are a creative AI assistant for Gixet.ai. Generate high-quality, engaging content based on user prompts. Keep responses concise and impactful.' 
           },
           { role: 'user', content: prompt }
         ],

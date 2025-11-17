@@ -22,8 +22,8 @@ export const HeroSection = ({
   return <div className="py-20 md:py-28 flex flex-col items-center text-center">
       <AnimatedTransition show={showTitle} animation="slide-up" duration={600}>
         {/* Title first */}
-        <h1 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent md:text-7xl">
-          Cortext.ai
+        <h1 className="text-4xl sm:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent md:text-7xl">
+          Gixet.ai
         </h1>
         
         {/* Subtitle */}
