@@ -63,7 +63,7 @@ const WhyPage = () => {
           
           <div className="mt-10 glass-panel p-8 md:p-10 rounded-lg max-w-3xl mx-auto shadow-lg border-2 border-primary/20">
             <p className="text-xl md:text-2xl text-foreground/90">
-              Why should Cortex exist? Why should anyone care to use it? Why is privacy so important to us?
+              Why should Gixet exist? Why should anyone care to use it? Why is privacy so important to us?
             </p>
             <p className="text-xl md:text-2xl text-foreground/90 mt-6">
               Eventually, the "why" led us here.
@@ -81,7 +81,7 @@ const WhyPage = () => {
                 We've always approached product design this way. We look at our current tools and ask ourselves why it's done the way it is. Why do bookmarking tools have social features? Why do we use folders? Dropdowns? Are these outdated UI patterns still useful or are they just clutter? What if we do it better? Or just different?
               </p>
               <p>
-                With Cortex we ultimately asked ourselves, why not? Why not find a different way to save what we care about? Why not remove all the other stuff that just gets in the way? Forget how it's usually done. Why not make it better?
+                With Gixet we ultimately asked ourselves, why not? Why not find a different way to save what we care about? Why not remove all the other stuff that just gets in the way? Forget how it's usually done. Why not make it better?
               </p>
               <div className="mt-6">
                 <Button variant="outline" className="gap-2" asChild>
@@ -92,7 +92,7 @@ const WhyPage = () => {
                 </Button>
               </div>
               <div className="mt-4 text-sm text-muted-foreground">
-                <p className="font-medium">The beginning — How did we end up creating Cortex?</p>
+                <p className="font-medium">The beginning — How did we end up creating Gixet?</p>
                 <p className="mt-2 font-medium">A letter — How can we build an extension of your mind?﻿</p>
               </div>
             </>
@@ -127,7 +127,7 @@ const WhyPage = () => {
               </div>
               <div className="mt-4 text-sm text-muted-foreground">
                 <p className="font-medium">Our promise from us to you</p>
-                <p className="mt-2 font-medium">A thought from Cortex on social features﻿</p>
+                <p className="mt-2 font-medium">A thought from Gixet on social features﻿</p>
                 <p className="mt-2 font-medium">A tool that works with your brain, not against it</p>
               </div>
             </>
@@ -157,13 +157,13 @@ const WhyPage = () => {
           content={
             <>
               <p>
-                We built Cortex for doers and makers. For people who are busy doing other things and simply need a place to collect and remember what they care about.
+                We built Gixet for doers and makers. For people who are busy doing other things and simply need a place to collect and remember what they care about.
               </p>
               <p>
-                Cortex doesn't interfere, doesn't bother and doesn't ask to be maintained. It's meant to serve you, as an extension of your mind. So you can think about anything and everything except the tool itself.
+                Gixet doesn't interfere, doesn't bother and doesn't ask to be maintained. It's meant to serve you, as an extension of your mind. So you can think about anything and everything except the tool itself.
               </p>
               <p>
-                Because that's all it is: A tool meant to help you achieve something else. Those who like to procrastinate with folders and unmaintainable systems will find plenty of other apps to keep them busy. Cortex is for those who would rather draw and write and build and dance and sing.
+                Because that's all it is: A tool meant to help you achieve something else. Those who like to procrastinate with folders and unmaintainable systems will find plenty of other apps to keep them busy. Gixet is for those who would rather draw and write and build and dance and sing.
               </p>
             </>
           }

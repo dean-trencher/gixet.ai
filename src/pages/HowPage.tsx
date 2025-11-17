@@ -165,11 +165,11 @@ const HowPage = () => {
           <div ref={heroRef} className="relative w-full max-w-3xl mx-auto">
             <div className="absolute -z-10 w-[300px] h-[300px] rounded-full bg-gradient-to-r from-primary/30 to-accent/30 blur-3xl left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
             <div className="glass-panel rounded-full py-5 px-8 inline-block mx-auto mb-12">
-              <h1 className="text-2xl md:text-3xl font-bold text-primary">How does Cortex work?</h1>
+              <h1 className="text-2xl md:text-3xl font-bold text-primary">How does Gixet work?</h1>
             </div>
             
             <p className="text-xl text-center text-foreground/80 max-w-2xl mx-auto mb-12">
-              There's a lot of magic and sophisticated technology behind Cortex, but we've kept it simple to use.
+              There's a lot of magic and sophisticated technology behind Gixet, but we've kept it simple to use.
             </p>
             
             <div className="flex justify-center">
@@ -182,7 +182,7 @@ const HowPage = () => {
         
         {/* Workflow Section */}
         <div className="mb-24">
-          <h2 className="text-3xl font-bold text-center mb-12">The Cortex Workflow</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">The Gixet Workflow</h2>
           
           <div className="relative">
             <div className="absolute left-5 top-6 w-0.5 h-[calc(100%-60px)] bg-gradient-to-b from-primary via-accent to-primary/30"></div>
@@ -196,7 +196,7 @@ const HowPage = () => {
               <WorkflowStep 
                 number={2}
                 title="Organize"
-                description="Cortex automatically categorizes and tags your content using advanced AI, creating a beautiful, organized knowledge base without manual effort."
+                description="Gixet automatically categorizes and tags your content using advanced AI, creating a beautiful, organized knowledge base without manual effort."
               />
               <WorkflowStep 
                 number={3}
@@ -218,7 +218,7 @@ const HowPage = () => {
           
           <FeatureShowcase
             title="Your knowledge base is visual"
-            description="Cortex transforms your notes and saved content into a beautiful, visual interface that makes browsing your digital mind a pleasure."
+            description="Gixet transforms your notes and saved content into a beautiful, visual interface that makes browsing your digital mind a pleasure."
             image="/placeholder.svg"
             features={[
               { icon: <CheckCircle size={24} />, text: "Visual organization of your knowledge" },
@@ -255,7 +255,7 @@ const HowPage = () => {
           
           <FeatureShowcase
             title="Your private knowledge hub"
-            description="Unlike social bookmarking tools, Cortex is completely private. Your data remains yours alone, secured with end-to-end encryption."
+            description="Unlike social bookmarking tools, Gixet is completely private. Your data remains yours alone, secured with end-to-end encryption."
             image="/placeholder.svg"
             features={[
               { icon: <CheckCircle size={24} />, text: "End-to-end encryption for all your data" },
@@ -268,7 +268,7 @@ const HowPage = () => {
           
           <FeatureShowcase
             title="An extension for your mind"
-            description="Cortex becomes an extension of your thinking process, available across all your devices and integrated with your workflow."
+            description="Gixet becomes an extension of your thinking process, available across all your devices and integrated with your workflow."
             image="/placeholder.svg"
             features={[
               { icon: <CheckCircle size={24} />, text: "Synchronized across all your devices in real-time" },
@@ -290,7 +290,7 @@ const HowPage = () => {
             <ValueProp
               icon={<Brain className="w-8 h-8 text-primary" />}
               title="Focus is freedom"
-              description="Cortex helps you stay focused by eliminating distractions and streamlining your thinking process."
+              description="Gixet helps you stay focused by eliminating distractions and streamlining your thinking process."
             />
             <ValueProp
               icon={<Shield className="w-8 h-8 text-primary" />}
