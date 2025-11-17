@@ -36,30 +36,44 @@ const EditConfig = () => {
     const { data: existingData } = await supabase
       .from('crypto_config')
       .select('id')
-      .single();
+      .maybeSingle();
 
+    let error;
+    
     if (existingData) {
-      const { error } = await supabase
+      // Update existing record
+      const result = await supabase
         .from('crypto_config')
         .update({
           contract_address: contractAddress,
           pump_fun_link: pumpFunLink,
         })
         .eq('id', existingData.id);
+      error = result.error;
+    } else {
+      // Insert new record
+      const result = await supabase
+        .from('crypto_config')
+        .insert({
+          contract_address: contractAddress,
+          pump_fun_link: pumpFunLink,
+        });
+      error = result.error;
+    }
 
-      if (error) {
-        toast({
-          title: "Error",
-          description: "Failed to update configuration",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Success",
-          description: "Configuration updated successfully",
-        });
-        navigate('/');
-      }
+    if (error) {
+      console.error('Error saving config:', error);
+      toast({
+        title: "Error",
+        description: error.message || "Failed to save configuration",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Configuration saved successfully",
+      });
+      navigate('/');
     }
     
     setLoading(false);
