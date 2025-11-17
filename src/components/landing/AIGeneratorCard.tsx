@@ -27,13 +27,8 @@ export const AIGeneratorCard = () => {
     setResult('');
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      
       const { data, error } = await supabase.functions.invoke('generate-ai-content', {
-        body: { prompt },
-        headers: session ? {
-          Authorization: `Bearer ${session.access_token}`
-        } : {}
+        body: { prompt }
       });
 
       if (error) {
