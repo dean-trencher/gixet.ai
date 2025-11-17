@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://cortext.space/
+**URL**: https://gixet.cloud/
 
 ## How can I edit this code?
 
