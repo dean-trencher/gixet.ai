@@ -45,6 +45,9 @@ const Index = () => {
           {/* Hero Section */}
           <HeroSection showTitle={showHero} />
           
+          {/* Testimonials Section (API Examples) */}
+          <TestimonialsSection showTestimonials={showTestimonials} />
+          
           {/* Manage Section */}
           <ManageSection show={showManage} />
           
@@ -56,9 +59,6 @@ const Index = () => {
           
           {/* Use Cases Section */}
           <UseCasesSection show={showUseCases} />
-          
-          {/* Testimonials Section */}
-          <TestimonialsSection showTestimonials={showTestimonials} />
           
           {/* Call to Action */}
           <CallToAction show={showCallToAction} />
