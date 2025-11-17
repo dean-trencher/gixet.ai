@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Sparkles, Loader2 } from 'lucide-react';
+import { Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -10,6 +10,7 @@ export const AIGeneratorCard = () => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { toast } = useToast();
 
   const handleGenerate = async () => {
@@ -26,19 +27,32 @@ export const AIGeneratorCard = () => {
     setResult('');
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
       const { data, error } = await supabase.functions.invoke('generate-ai-content', {
-        body: { prompt }
+        body: { prompt },
+        headers: session ? {
+          Authorization: `Bearer ${session.access_token}`
+        } : {}
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Edge function error:', error);
+        throw error;
+      }
 
-      setResult(data.content);
-      setIsExpanded(false);
-      toast({
-        title: "Success",
-        description: "Content generated successfully",
-      });
+      if (data?.content) {
+        setResult(data.content);
+        setIsExpanded(false);
+        toast({
+          title: "Success",
+          description: "Content generated successfully",
+        });
+      } else {
+        throw new Error('No content received');
+      }
     } catch (error: any) {
+      console.error('AI Generation error:', error);
       toast({
         title: "Error",
         description: error.message || "Failed to generate content",
@@ -47,6 +61,37 @@ export const AIGeneratorCard = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(result);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    toast({
+      title: "Copied",
+      description: "Content copied to clipboard",
+    });
+  };
+
+  const isCodeContent = (text: string) => {
+    const codePatterns = [
+      /^(function|const|let|var|class|import|export)/m,
+      /[{}\[\];()]/,
+      /^(def|class|import|from)/m,
+      /<[a-z][\s\S]*>/i,
+      /^\s*(public|private|protected)/m
+    ];
+    return codePatterns.some(pattern => pattern.test(text));
+  };
+
+  const highlightCode = (code: string) => {
+    return code
+      .replace(/\b(function|const|let|var|class|import|export|from|return|if|else|for|while|switch|case|break|continue|try|catch|throw|async|await|new|this|super|extends|implements|interface|type|enum|public|private|protected|static|readonly|get|set)\b/g, '<span class="text-blue-400">$1</span>')
+      .replace(/\b(true|false|null|undefined)\b/g, '<span class="text-orange-400">$1</span>')
+      .replace(/\b(\d+)\b/g, '<span class="text-green-400">$1</span>')
+      .replace(/(["'`])(.*?)\1/g, '<span class="text-yellow-400">$1$2$1</span>')
+      .replace(/\/\/(.*?)$/gm, '<span class="text-gray-500">//$1</span>')
+      .replace(/\/\*([\s\S]*?)\*\//g, '<span class="text-gray-500">/*$1*/</span>');
   };
 
   return (
@@ -85,11 +130,42 @@ export const AIGeneratorCard = () => {
         
         {result && (
           <div className="mt-6 p-6 bg-muted/50 rounded-lg">
-            <h4 className="font-semibold mb-3">Generated Content:</h4>
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="font-semibold">Generated Content:</h4>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopy}
+                className="gap-2"
+              >
+                {copied ? (
+                  <>
+                    <Check size={16} />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy size={16} />
+                    Copy
+                  </>
+                )}
+              </Button>
+            </div>
             <div className="relative">
-              <p className={`whitespace-pre-wrap ${!isExpanded && result.length > 300 ? 'line-clamp-4' : ''}`}>
-                {result}
-              </p>
+              {isCodeContent(result) ? (
+                <div className="bg-black/80 p-4 rounded-lg overflow-x-auto">
+                  <pre className="text-sm font-mono">
+                    <code 
+                      className={`whitespace-pre-wrap ${!isExpanded && result.length > 500 ? 'line-clamp-6' : ''}`}
+                      dangerouslySetInnerHTML={{ __html: highlightCode(result) }}
+                    />
+                  </pre>
+                </div>
+              ) : (
+                <p className={`whitespace-pre-wrap ${!isExpanded && result.length > 300 ? 'line-clamp-4' : ''}`}>
+                  {result}
+                </p>
+              )}
               {result.length > 300 && (
                 <Button
                   variant="ghost"
