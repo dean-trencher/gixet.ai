@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { LogIn, Search, Upload, User, Settings, LogOut, Moon, Sun, Table, Info, HelpCircle, Code, Github } from 'lucide-react';
 import { WalletConnect } from '@/components/WalletConnect';
-import cortexLogo from '@/assets/cortext-logo.png';
+import gixetLogo from '@/assets/gixet-logo.png';
 import { useRippleEffect } from '@/lib/animations';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -195,13 +195,13 @@ export const Navbar = () => {
           hasTicker ? "top-16" : "top-6"
         )}>
           <nav className="flex items-center">
-            {/* Logo and Cortext with submenu */}
+            {/* Logo and Gixet with submenu */}
             <div className="flex items-center gap-2 mr-2">
-              <img src={cortexLogo} alt="Cortext.ai" className="w-8 h-8" />
+              <img src={gixetLogo} alt="Gixet.ai" className="w-8 h-8" />
               <NavItem
                 to="#"
                 icon={null}
-                label="Cortext.ai"
+                label="Gixet.ai"
                 active={['what', 'why', 'how'].includes(active)}
                 onClick={() => {}}
                 hasSubmenu={true}
@@ -235,7 +235,7 @@ export const Navbar = () => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <a
-                  href="https://github.com/dean-trencher/cortext.ai"
+                  href="https://github.com/dean-trencher/gixet.ai"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center px-4 py-3 rounded-lg hover:bg-primary/10 hover:text-primary transition-all duration-300"
